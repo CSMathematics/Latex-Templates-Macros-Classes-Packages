@@ -1,5 +1,5 @@
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{frontisthrio-ask}[26/10/2024 Φροντιστήριο Φιλομάθεια]
+\ProvidesClass{FFExercises}[26/10/2024 Φροντιστήριο Φιλομάθεια]
 
 \DeclareOption{classic}{\newcommand{\style}{classic}}
 \DeclareOption{modern}{\newcommand{\style}{modern}}
@@ -39,7 +39,8 @@
 	\end{center}
 	\vspace{1cm}
 }
-}{}
+}
+{}
 
 \ifthenelse{\equal{\style}{modern}}
 {
