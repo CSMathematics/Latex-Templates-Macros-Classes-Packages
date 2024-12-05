@@ -1,0 +1,21 @@
+{
+    "abbrev": "",
+    "description": [
+        ""
+    ],
+    "formatVersion": 2,
+    "menu": "Latex3",
+    "name": "Ευκλείδεια διαίρεση",
+    "shortcut": "",
+    "tag": [
+        "\\NewDocumentCommand{\\Diairesh}{mm}{",
+        "\\int_new:N \\phliko",
+        "\\int_set:Nn \\phliko {\\int_div_truncate:nn {#1}{#2}}",
+        "\\int_new:N \\ypoloipo",
+        "\\int_set:Nn \\ypoloipo {\\int_mod:nn {#1}{#2}}",
+        "$#1=#2\\cdot\\int_use:N \\phliko+\\int_use:N\\ypoloipo$",
+        "}"
+    ],
+    "trigger": "",
+    "type": "Snippet"
+}

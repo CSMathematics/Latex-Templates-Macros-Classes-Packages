@@ -1,0 +1,24 @@
+{
+    "abbrev": "",
+    "description": [
+        ""
+    ],
+    "formatVersion": 2,
+    "menu": "Latex3",
+    "name": "Add integers",
+    "shortcut": "",
+    "tag": [
+        "\\NewDocumentCommand{\\addintegers}{m}{ % #1 = comma-separated list",
+        "  \\int_new:N \\l_sum_integ % Create an integer variable to store the sum",
+        "  \\int_zero:N \\l_sum_integ % Initialize the sum to 0",
+        "",
+        "  \\clist_map_inline:nn {#1} { % Iterate through the comma list",
+        "    \\int_add:Nn \\l_sum_integ {##1} % Add each item to the sum",
+        "  }",
+        "",
+        "  \\clist_use:nn {#1}{+}=\\int_use:N \\l_sum_integ % Display the final sum",
+        "}"
+    ],
+    "trigger": "",
+    "type": "Snippet"
+}

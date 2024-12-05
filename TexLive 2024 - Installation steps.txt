@@ -1,0 +1,10 @@
+1. mount texlive.iso
+2. sudo ./install-tl
+3. C - dklmnostuSwxyzABC
+4.  export PATH=/usr/local/texlive/2024/bin/x86_64-linux:$PATH
+    export INFOPATH=$INFOPATH:/usr/local/texlive/2024/texmf-dist/doc/info
+    export MANPATH=$MANPATH:/usr/local/texlive/2024/texmf-dist/doc/man
+5. Copy mtpro2 files
+6. mktexlsr
+7. Add line Map mtpro2.map to updmap.cfg
+7. updmap-sys (--syncwithtrees)

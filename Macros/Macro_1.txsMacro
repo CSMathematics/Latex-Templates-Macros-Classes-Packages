@@ -1,0 +1,36 @@
+{
+    "abbrev": "",
+    "description": [
+        ""
+    ],
+    "formatVersion": 2,
+    "menu": "",
+    "name": "ODE_Book_Basic_function_plot",
+    "shortcut": "",
+    "tag": [
+        "\\begin{tikzpicture}",
+        "\\begin{axis}[width=7cm,height=7cm,",
+        "xmin=-7,xmax=7,",
+        "ymin=-7,ymax=7,",
+        "xtick={-6,-4,...,6},",
+        "ytick={-6,-4,...,6},",
+        "xlabel={\\footnotesize $ x $},",
+        "ylabel={\\footnotesize $ y $},",
+        "belh ar,aks_on,",
+        "restrict y to domain=-20:20,",
+        "grid=both,",
+        "grid style={line width=.1pt, draw=gray!10},",
+        "major grid style={line width=.2pt,draw=gray!50},",
+        "minor tick num=4]",
+        "\\begin{scope}",
+        "\\clip (axis cs:-7,-7) rectangle (axis cs:7,7);",
+        "\\addplot[grafikh parastash,domain=-7:7,RoyalBlue]{-2/x};",
+        "\\end{scope}",
+        "\\node at (axis cs:3,3) {$y(x)=-\\frac{2}{x}$};",
+        "\\node at (axis cs:-.5,-0.5) {\\footnotesize$O$};",
+        "\\end{axis}",
+        "\\end{tikzpicture}"
+    ],
+    "trigger": "",
+    "type": "Snippet"
+}

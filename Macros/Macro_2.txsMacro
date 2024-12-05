@@ -1,0 +1,31 @@
+{
+    "abbrev": "",
+    "description": [
+        ""
+    ],
+    "formatVersion": 2,
+    "menu": "",
+    "name": "ODE_Book_ImplicitPlot",
+    "shortcut": "",
+    "tag": [
+        "\\begin{scope}",
+        "\\foreach [evaluate=\\c as \\percent using 100-30*\\c] \\c in {3,2,1.5,0.5,0.15}",
+        "{\\edef\\temp{\\noexpand%",
+        "\\addplot +[grafikh parastash,domain=-3:3,maincolor!\\percent!secondarycolor,no markers,",
+        "      raw gnuplot,",
+        "      thick,",
+        "      empty line = jump] gnuplot {",
+        "      set contour base;",
+        "      set cntrparam levels discrete 0.003;",
+        "      unset surface;",
+        "      set view map;",
+        "      set isosamples 500;",
+        "      set samples 200;",
+        "      splot x*y^2+exp(x)-\\c;",
+        "    };}\\temp",
+        "}",
+        "\\end{scope}"
+    ],
+    "trigger": "",
+    "type": "Snippet"
+}
