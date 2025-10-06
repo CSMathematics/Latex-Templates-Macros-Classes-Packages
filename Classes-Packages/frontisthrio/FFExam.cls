@@ -59,7 +59,7 @@
 }
 \def\typos{Α - ΘΕΜΑΤΑ ΘΕΩΡΙΑΣ}}{}
 \ifthenelse{\equal{\type}{B}}
-{\definecolor{xrwma}{HTML}{00a7a7}
+{\definecolor{xrwma}{HTML}{007aa7}
 \def\perigrafi{}
 \def\typos{Β - ΓΕΝΙΚΑ ΘΕΜΑΤΑ}}{}
 \ifthenelse{\equal{\type}{C}}

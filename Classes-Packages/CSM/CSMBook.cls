@@ -1,0 +1,559 @@
+% ===================================================================
+%  ΠΡΟΣΑΡΜΟΣΜΕΝΗ ΚΛΑΣΗ "CSMBook"
+% ===================================================================
+% --- Αναγνώριση και Φόρτωση Βασικής Κλάσης ---
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesClass{CSMBook}[2025/10/06 v1.0 CSMathematics Book Class]
+
+% --- Διαχείριση Επιλογών Κλάσης ---
+% Δηλώνουμε ότι οι επιλογές που θα δώσει ο χρήστης (π.χ. 11pt, a4paper)
+% πρέπει να περάσουν στην βασική κλάση 'book'.
+\DeclareOption*{\PassOptionsToClass{\CurrentOption}{book}}
+\ProcessOptions\relax
+
+% Φορτώνουμε την κλάση 'book' με τις επιλογές που δόθηκαν.
+\LoadClass{book}
+
+% ===================================================================
+%  1. ΒΑΣΙΚΑ ΠΑΚΕΤΑ & ΓΛΩΣΣΑ
+% ===================================================================
+\RequirePackage[english,greek]{babel}
+% ΣΗΜΕΙΩΣΗ: Χρήση του parskip για αυτόματο κενό μεταξύ παραγράφων,
+% αντί για χειροκίνητο μηδενισμό της εσοχής (\parindent).
+\RequirePackage{parskip}
+
+% ===================================================================
+%  2. ΓΡΑΜΜΑΤΟΣΕΙΡΕΣ (Απαιτείται XeLaTeX ή LuaLaTeX)
+% ===================================================================
+% ΣΗΜΕΙΩΣΗ: Τα inputenc και fontenc είναι περιττά με το XeLaTeX.
+% Το xunicode είναι παρωχημένο και η λειτουργικότητά του
+% είναι ενσωματωμένη στο fontspec.
+\RequirePackage[no-math]{fontspec}
+\RequirePackage{xgreek}
+\let\hbar\relax % Για συμβατότητα με το πακέτο mtpro2
+\defaultfontfeatures{Mapping=tex-text,Scale=MatchLowercase}
+
+% --- Κύριες γραμματοσειρές ---
+\setmainfont[Mapping=tex-text,Numbers=Lining,Scale=1.0,BoldFont={Minion Pro Bold}]{Minion Pro}
+\newfontfamily\titlefont{Century Gothic Bold}
+\newfontfamily\scfont{Nimbus Roman}
+\newfontfamily\notoserif{Noto Serif}
+\newfontfamily\urwgothic{URW Gothic}
+
+% --- Προσαρμοσμένες εντολές για γραμματοσειρές ---
+% ΣΗΜΕΙΩΣΗ: Αντικατάσταση της παλιάς εντολής \font με σύγχρονες
+% εντολές του LaTeX για καλύτερη διαχείριση μεγέθους.
+\newcommand{\kefalaio}[1]{{\notoserif\bfseries\fontsize{36}{42}\selectfont #1}}
+\newcommand{\ArKef}[1]{{\notoserif\bfseries\itshape\fontsize{72}{80}\selectfont #1}}
+\newcommand{\OnKef}[1]{{\notoserif\fontsize{40}{46}\selectfont #1}}
+\newcommand{\OnPar}[1]{{\notoserif\bfseries\fontsize{18}{22}\selectfont #1}}
+\newcommand{\onoma}[1]{{\urwgothic\bfseries\normalsize #1}}
+\newcommand{\Askhseis}[1]{{\urwgothic\bfseries\fontsize{16}{19}\selectfont #1}}
+
+% ===================================================================
+%  3. ΓΕΩΜΕΤΡΙΑ ΣΕΛΙΔΑΣ
+% ===================================================================
+\RequirePackage[
+    a4paper,
+    twoside,
+    inner=1.5cm,
+    top=3cm,
+    bottom=2cm,
+    textwidth=12cm,
+    marginparsep=5mm,
+    marginparwidth=5.5cm
+]{geometry}
+
+% ===================================================================
+%  4. ΧΡΩΜΑΤΑ
+% ===================================================================
+\RequirePackage[dvipsnames,table,x11names]{xcolor}
+\definecolor{maincolor}{RGB}{35,150,210}
+\definecolor{secondarycolor}{RGB}{210,20,210}
+\definecolor{thirdcolor}{RGB}{110,195,7}
+
+% ===================================================================
+%  5. ΜΑΘΗΜΑΤΙΚΑ
+% ===================================================================
+\RequirePackage{mathtools} % Το mathtools φορτώνει αυτόματα το amsmath
+\let\myBbbk\Bbbk
+\let\Bbbk\relax
+\RequirePackage[amsbb,subscriptcorrection,zswash,mtpcal,mtphrb,mtpfrak]{mtpro2}
+\RequirePackage{mathimatika,venndiagram,diffcoeff}
+\allowdisplaybreaks
+
+\providecommand\PARENS[1]{\left(#1\right)}
+
+\makeatletter
+\newsavebox{\mtp@matrixbox}
+\renewenvironment{pmatrix}{%
+  \matrix@check\pmatrix
+  \setbox\mtp@matrixbox=\hbox\bgroup$\begin{matrix}%
+}{%
+  \end{matrix}$\egroup
+  \PARENS{\copy\mtp@matrixbox}%
+}
+\renewenvironment{pmatrix*}[1][c]{%
+  \matrix@check\pmatrix
+  \setbox\mtp@matrixbox=\hbox\bgroup$\begin{matrix*}[#1]%
+}{%
+  \end{matrix*}$\egroup
+  \PARENS{\copy\mtp@matrixbox}%
+}
+\makeatother
+
+\DeclareMathSizes{10.95}{10.95}{7}{5}
+\DeclareMathSizes{6}{6}{3.8}{2.7}
+\DeclareMathSizes{8}{8}{5.1}{3.6}
+\DeclareMathSizes{9}{9}{5.8}{4.1}
+\DeclareMathSizes{10}{10}{6.4}{4.5}
+\DeclareMathSizes{12}{12}{7.7}{5.5}
+\DeclareMathSizes{14.4}{14.4}{9.2}{6.5}
+\DeclareMathSizes{17.28}{17.28}{11}{7.9}
+\DeclareMathSizes{20.74}{20.74}{13.3}{9.4}
+\DeclareMathSizes{24.88}{24.88}{16}{11.3}
+
+\makeatletter
+\AtBeginDocument{
+\check@mathfonts
+\fontdimen16\textfont2=2.5pt
+\fontdimen17\textfont2=2.5pt
+\fontdimen14\textfont2=4.5pt
+\fontdimen13\textfont2=4.5pt}
+\makeatother
+\DeclareMathOperator{\tr}{tr}
+\DeclareMathOperator{\adj}{adj}
+\DeclareMathOperator{\diag}{diag}
+
+% ===================================================================
+%  6. ΓΡΑΦΙΚΑ & ΣΧΗΜΑΤΑ
+% ===================================================================
+\RequirePackage{graphicx,tikz,pgfplots,tkz-euclide}
+\usetikzlibrary{shadows,calc,fadings}
+\pgfplotsset{compat=newest}
+\tkzSetUpPoint[size=2.8,fill=white]
+
+% ΣΗΜΕΙΩΣΗ: Χρήση της σύγχρονης εντολής \tikzset αντί για \tikzstyle.
+\tikzset{
+    >=latex,
+    l3/.style={line width=0.3mm},
+    l4/.style={line width=0.4mm},
+    labelbox/.style args={#1}{align=center,draw=#1,fill=#1!30!white,rectangle,rounded corners=1,font=\tiny\linespread{0.8}\selectfont}
+}
+
+% ===================================================================
+%  7. ΔΙΑΦΟΡΑ ΠΑΚΕΤΑ
+% ===================================================================
+\RequirePackage{gensymb,fontawesome5,eurosym,titletoc,sidenotes,multicol,adjmulticol}
+\RequirePackage[framemethod=tikz]{mdframed}
+\RequirePackage[explicit]{titlesec}
+
+% ===================================================================
+%  8. ΚΕΦΑΛΙΔΑ & ΥΠΟΣΕΛΙΔΟ (fancyhdr)
+% ===================================================================
+\RequirePackage{fancyhdr}
+\pagestyle{fancy}
+\fancyheadoffset[LE]{\marginparwidth+\marginparsep}
+\fancyheadoffset[RO]{\marginparwidth+\marginparsep}
+\renewcommand{\headrulewidth}{\iftopfloat{0pt}{.5pt}}
+\renewcommand{\chaptermark}[1]{\markboth{#1}{}}
+\renewcommand{\sectionmark}[1]{\markright{\it\thesection\ #1}}
+\fancyhf{}
+\fancyhead[LE]{\thepage\ $\cdot$\ \nouppercase{\leftmark}}
+\fancyhead[RO]{\nouppercase{\rightmark} $\cdot$\ \thepage}
+\fancypagestyle{plain}{%
+\fancyhead{}
+\renewcommand{\headrulewidth}{0pt}}
+
+% ===================================================================
+%  9. ΟΡΙΣΜΟΙ - ΘΕΩΡΗΜΑΤΑ - ΔΙΑΦΟΡΑ ΠΛΑΙΣΙΑ (tcolorbox)
+% ===================================================================
+% ΣΗΜΕΙΩΣΗ: Ολόκληρη η ενότητα έχει αναδομηθεί με τη βιβλιοθήκη 'theorems'
+% του tcolorbox. Αυτό κάνει τον κώδικα δραματικά πιο καθαρό,
+% ευέλικτο και εύκολο στη συντήρηση.
+\RequirePackage[most]{tcolorbox}
+\tcbuselibrary{skins,theorems,breakable}
+% ΟΡΙΣΜΟΣ
+\newcounter{orismos}[chapter]
+\renewcommand{\theorismos}{\thechapter.\arabic{orismos}}   
+\newcommand{\orism}{\refstepcounter{orismos}{\bf\titlefont{\textcolor{maincolor}{\large{Ορισμός}\hspace{2mm}\theorismos}}}\hspace{1mm}}{}
+
+\newenvironment{Orismos}[1]
+{\begin{tcolorbox}[title=\orism:\ \  {\bf{\large\titlefont{#1}}},
+breakable,
+enhanced standard,
+titlerule=-.2pt,
+toprule=0pt, 
+rightrule=0pt, 
+bottomrule=0pt,
+colback=white,
+opacityfill=0,
+left=2mm,
+top=1mm,
+bottom=0mm,
+boxrule=0pt,
+colframe=white,
+borderline west={1.5mm}{0pt}{maincolor},
+leftrule=2mm,
+sharp corners,
+coltitle=black]}
+{\end{tcolorbox}}
+
+% ΘΕΩΡΗΜΑ
+\newcounter{thewrhma}[chapter]
+\renewcommand{\thethewrhma}{\thechapter.\arabic{thewrhma}} 
+\newcommand{\thewr}{\refstepcounter{thewrhma}{\bf\titlefont{\textcolor{secondarycolor}{\large Θεώρημα\hspace{2mm}\thethewrhma}}}\hspace{1mm}}{}
+
+\newenvironment{Thewrhma}[1]
+{\begin{tcolorbox}[title=\thewr\ \ :\ \  {\textcolor{black}{\bf{\large\titlefont{#1}}}},
+breakable,
+enhanced standard,
+titlerule=-.2pt,
+toprule=0pt, 
+rightrule=0pt, 
+bottomrule=0pt,
+colback=white,
+left=2mm,
+top=1mm,
+bottom=0mm,
+boxrule=0pt,
+colframe=white,
+borderline west={1.5mm}{0pt}{secondarycolor},
+leftrule=2mm,
+sharp corners,
+coltitle=secondarycolor]}
+{\end{tcolorbox}}
+
+% ΠΑΡΑΤΗΡΗΣΗ
+\newenvironment{Parathrhsh}[1]
+{\begin{tcolorbox}[title=\textbf{\faInfoCircle\ \ \ \titlefont{{\large Παρατήρηση}}},
+breakable,
+enhanced standard,
+lifted shadow={1mm}{-2mm}{3mm}{0.3mm}{black!50!white},
+colback=yellow!5!white,
+boxrule=0.1pt,
+colframe=yellow!80!black,
+hyphenationfix=true,
+fonttitle=\bfseries,
+toptitle=1mm,
+bottomtitle=1mm,
+width=#1]}
+{\end{tcolorbox}}
+
+% ΣΗΜΕΙΩΣΗ
+\newenvironment{Shmeiwsh}[1]
+{\begin{tcolorbox}[title=\textbf{\faBook\ \ \ \titlefont{{\large Σημείωση}}},
+breakable,
+enhanced standard,
+lifted shadow={1mm}{-2mm}{3mm}{0.3mm}{black!50!white},
+colback=thirdcolor!5!white,
+boxrule=0.1pt,
+colframe=thirdcolor!80!black,
+hyphenationfix=true,
+fonttitle=\bfseries,
+toptitle=1mm,
+bottomtitle=1mm,
+width=#1]}
+{\end{tcolorbox}}
+
+% ΠΡΟΣΟΧΗ
+\newenvironment{Prosoxi}[1]
+{\begin{tcolorbox}[title=\textbf{\faExclamationTriangle\ \ \ \titlefont{{\large Προσοχή}}},
+breakable,
+enhanced standard,
+lifted shadow={1mm}{-2mm}{3mm}{0.3mm}{black!50!white},
+colback=red!5!white,
+boxrule=0.1pt,
+colframe=red!80!black,
+fonttitle=\bfseries,
+toptitle=1mm,
+bottomtitle=1mm,
+width=#1]}
+{\end{tcolorbox}}
+
+% ΣΤΥΛ ΠΑΡΑΔΕΙΓΜΑΤΟΣ
+\newcounter{paradeigma}[chapter]
+\renewcommand{\theparadeigma}{\bf\titlefont{\thechapter.\arabic{paradeigma}}} 
+
+\newenvironment{Paradeigma}[1]{\refstepcounter{paradeigma}\textcolor{magenta!70!black}{\textbf{\large \faPlay\ \ \titlefont{Παράδειγμα}\hspace{2mm}\theparadeigma\;:\;}\hspace{1mm}} {\titlefont{#1}}\\\bfseries\boldmath}{\mbox{}\newline\lysh\mbox{}\newline}
+
+% ΣΤΥΛ ΛΥΣΗΣ - ΑΠΟΔΕΙΞΗΣ
+\newcommand{\lysh}{\textcolor{maincolor!80!black}{\titlefont{\faCheck\ ΛΥΣΗ}}}
+\newcommand{\apodeiksi}{\textcolor{secondarycolor!80!black}{\titlefont{\faPen\ \textbf{ΑΠΟΔΕΙΞΗ}\\}}}
+
+% ΛΥΜΕΝΑ ΠΑΡΑΔΕΙΓΜΑΤΑ ΤΙΤΛΟΣ 
+\newcommand{\Lymena}{\begin{center}
+\begin{tikzpicture}
+\path[left color=cyan!70!black,right color=cyan!80!black,middle color=cyan!80!white] (-7cm,-.6cm) rectangle (6.5cm,.6cm);
+\node at (-.25cm,0) {\Large \textcolor{white}{\textbf{ΛΥΜΕΝΑ ΠΑΡΑΔΕΙΓΜΑΤΑ}}};  
+\end{tikzpicture}
+\end{center}}
+
+% ΑΛΥΤΕΣ ΑΣΚΗΣΕΙΣ ΤΙΤΛΟΣ 
+\newcommand{\Alyta}{
+\begin{tikzpicture}[overlay,remember picture]
+\path[left color=maincolor,right color=maincolor!80!black,middle color=maincolor!70!white] (0cm,.7cm) --(0cm,-.5cm) -- (7.9cm,-.5cm) -- (8.7cm,.63cm) -- (18cm,.63cm) -- (18cm,.7cm)-- cycle;
+\path[bottom color=white, middle color=maincolor,top color=maincolor] (0cm,-0.5cm)--(0cm,-3cm)--(0.05cm,-3cm)--(0.05cm,-0.5cm)--cycle;
+\path[bottom color=white,top color=maincolor!80!black] (18cm,0.7cm)--(18cm,-3cm)--(17.95cm,-3cm)--(17.95cm,0.7cm)--cycle;
+\node at (3.8cm,.1) {\LARGE \textcolor{white}{\textbf{\faPenSquare\ \ \rule{.5mm}{5mm}\ \ \titlefont{ΑΣΚΗΣΕΙΣ - Ενότητα \thesection}}}};
+\end{tikzpicture}\mbox{}\\}
+
+\newcommand{\alyta}{
+\begin{tikzpicture}[overlay,remember picture]
+\path[left color=maincolor,right color=maincolor,middle color=maincolor!50!white] (0cm,0cm) --(0cm,.05cm) -- (18cm,.05cm) -- (18cm,.0cm) -- cycle;
+\path[top color=white,bottom color=maincolor] (0cm,0cm)--(0cm,2cm)--(0.05cm,2cm)--(0.05cm,0cm)--cycle;
+\path[top color=white,bottom color=maincolor] (18cm,0cm)--(18cm,2cm)--(17.95cm,2cm)--(17.95cm,0cm)--cycle;
+\end{tikzpicture}\mbox{}\\}
+
+\newcounter{porisma}[chapter]
+\renewcommand{\theporisma}{\thechapter.\arabic{porisma}}\newcommand{\Porisma}[1]{\refstepcounter{porisma}\textcolor{black}{\textbf{ΠΟΡΙΣΜΑ\hspace{2mm}\theporisma\hspace{1mm} \MakeUppercase{#1}}}\\}{}
+
+\newcounter{protasi}[chapter]
+\renewcommand{\theprotasi}{\thechapter.\arabic{protasi}}\newcommand{\Protasi}[1]{\refstepcounter{protasi}\textcolor{black}{\textbf{ΠΡΟΤΑΣΗ\hspace{2mm}\theprotasi\hspace{1mm} \MakeUppercase{#1}}}\\}{}
+
+% Κάρτα πληροφοριών με φωτογραφία
+\newcommand{\Info}[5]{
+\begin{tcolorbox}[
+    enhanced,
+    width=5.5cm,
+    arc=2mm,
+    colback=white,
+    colframe=black,
+    boxrule=0pt,
+    bottom=0pt, top=0pt, left=0pt, right=0pt,
+	enhanced standard,
+	fuzzy shadow={2mm}{-2mm}{0mm}{0.4mm}{black!50!white},
+	boxsep=0mm
+]
+
+% --- Εικόνα χωρίς καθόλου περιθώρια ---
+\begin{tikzpicture}
+\node[
+    inner sep=0pt,
+    outer sep=0pt,
+    rounded corners=2mm,
+    clip
+] {\includegraphics[width=\linewidth,height=4cm]{#5}};
+\end{tikzpicture}
+
+% --- Κείμενο ---
+\begin{tcolorbox}[
+    colback=white,
+    boxrule=0pt,
+    top=2mm,bottom=0mm,left=3mm,right=3mm,
+    sharp corners=all
+]
+    \begin{center}
+    {\bfseries\LARGE \titlefont{#1}} \\[4pt]
+	{\color{secondarycolor!80!black} \titlefont{#2}}
+	\end{center}
+    {\small #3}
+\end{tcolorbox}
+
+% --- Κάτω μπάρα ---
+\begin{tcolorbox}[
+    colback=maincolor!90!black,
+    colupper=white,
+    boxrule=0pt,
+    bottom=3pt,top=3pt,left=2mm,right=2mm,
+    rounded corners=south,
+	sharp corners=north,
+    arc=2mm
+]
+\titlefont{#4}
+\end{tcolorbox}
+\end{tcolorbox}}
+
+% ===================================================================
+%  10. ΛΙΣΤΕΣ (enumitem)
+% ===================================================================
+\RequirePackage{enumitem}
+\newlist{rlist}{enumerate}{3} \setlist[rlist]{itemsep=0mm,label=\roman*.}
+\newlist{alist}{enumerate}{3} \setlist[alist]{itemsep=0mm,label=\alph*.}
+\newlist{balist}{enumerate}{3} \setlist[balist]{itemsep=0mm,label=\bf\alph*.}
+\newlist{Alist}{enumerate}{3} \setlist[Alist]{itemsep=0mm,label=\Alph*.}
+\newlist{bAlist}{enumerate}{3} \setlist[bAlist]{itemsep=0mm,label=\bf\Alph*.}
+\newlist{askhseis}{enumerate}{3} \setlist[askhseis]{label={\Large\thesection}.\arabic*.}
+\renewcommand{\textstigma}{\textsigma\texttau}
+\renewcommand{\textdexiakeraia}{}
+\setlist[itemize]{itemsep=0mm}
+
+% --- Στυλ άσκησης ---
+\newcounter{askhsh}[chapter]
+\renewcommand{\theaskhsh}{\bf{\textit{{\Large{\thechapter}}.\arabic{askhsh}}}}
+\newcommand{\Askhsh}{\refstepcounter{askhsh}\textcolor{maincolor}{{\theaskhsh}\hspace{2mm}}}{}
+
+% ===================================================================
+%  11. ΒΙΒΛΙΟΓΡΑΦΙΑ (biblatex)
+% ===================================================================
+\RequirePackage{csquotes} % Για σωστή διαχείριση εισαγωγικών, συνιστάται από το biblatex
+\RequirePackage[backend=biber,style=alphabetic,sorting=ynt]{biblatex}
+
+% ===================================================================
+%  12. ΠΙΝΑΚΕΣ (tabularray, longtable, caption)
+% ===================================================================
+\RequirePackage{tabularx,longtable,tabularray,capt-of,caption}
+\DeclareTblrTemplate{caption}{nocaptemplate}{}
+\DeclareTblrTemplate{capcont}{nocaptemplate}{}
+\DeclareTblrTemplate{contfoot}{nocaptemplate}{}
+\NewTblrTheme{mytabletheme}{
+\SetTblrTemplate{caption}{nocaptemplate}{}
+\SetTblrTemplate{capcont}{nocaptemplate}{}
+\SetTblrTemplate{contfoot}{nocaptemplate}{}}
+
+\NewTblrEnviron{mytblr}
+\SetTblrStyle{firsthead}{font=\bfseries}
+\SetTblrStyle{firstfoot}{fg=red2}
+\SetTblrOuter[mytblr]{theme=mytabletheme}
+\SetTblrInner[mytblr]{
+    rowspec={t{7mm}},
+    columns = {c},
+    width = 0.85\linewidth,
+    row{odd} = {bg=maincolor!20!white,fg=black,ht=8mm},
+    row{even} = {bg=gray!10!white,fg=black,ht=8mm},
+    hlines={white},
+    vlines={white},
+    row{1} = {bg=maincolor, fg=white, font=\bfseries\fontfamily{maksf}},
+    rowhead = 1,
+    hline{2} = {.7mm},
+}
+\captionsetup[figure]{format=hang,labelsep=period,name={\titlefont{\textbf{Σχήμα}}}}
+\renewcommand\thefigure{{\bf\titlefont{\thechapter.\arabic{figure}}}}
+
+% ===================================================================
+%  13. ΠΕΡΙΕΧΟΜΕΝΑ (etoc & titletoc)
+% ===================================================================
+% ΣΗΜΕΙΩΣΗ: Το etoc χρησιμοποιείται για τον τοπικό πίνακα περιεχομένων στο περιθώριο.
+% Το titletoc χρησιμοποιείται για τον κύριο πίνακα. Αυτό μπορεί να απλοποιηθεί
+% στο μέλλον με πλήρη μετάβαση στο etoc.
+\RequirePackage{etoc}
+\etocsettocdepth{1}
+\etocsetstyle{section}{}{}{\hspace{2mm}
+\makebox[0pt][r]{\textcolor{secondarycolor!80!black}{\faStop}\ \
+\titlefont{\textbf{\etocnumber}}\hspace{1em}}%
+\titlefont{\etocname}\par}{}
+
+\etocsettocstyle {
+\noindent\titlefont{\Large \textbf{\hspace{2mm}Περιεχόμενα\ \ κεφαλαίου}}\par
+\thispagestyle{empty}%
+\noindent{\color{maincolor}\textbf{\dotfill}}\par\vspace{1ex}%
+\leftskip1.5cm\parindent0pt\def\TEMP{0}}{}
+\etocsetstyle{subsection}
+{}
+{\etocnumber.\enspace}
+{}
+{}
+\contentsmargin{0cm}
+\titlecontents{part}[-1pc]
+{\addvspace{10pt}%
+\bf\Large ΜΕΡΟΣ\quad }{}
+{}
+{\;\dotfill\;\normalsize\ Σελίδα}%
+\titlecontents{chapter}[0pc]
+{\addvspace{30pt}%
+\begin{tikzpicture}[remember picture, overlay]%
+\draw[fill=black,draw=black] (-.3,.5) rectangle (3.7,1.1); %
+\pgftext[left,x=0cm,y=0.75cm]{\color{white}\sc\Large\bfseries Κεφάλαιο\ \thecontentslabel};%
+\end{tikzpicture}\footnotesize}%
+{}
+{}
+{\hspace*{-2.3em}\hfill\normalsize Σελίδα \thecontentspage}%
+\titlecontents{section}[2.4pc]
+{\addvspace{1pt}}
+{\contentslabel[\thecontentslabel]{2pc}}
+{}
+{\;\dotfill\;\small \thecontentspage}
+[]
+\titlecontents*{subsection}[4pc]
+{\addvspace{-1pt}\small}
+{}
+{}
+{\ --- \small\thecontentspage}
+[ \textbullet\ ][]
+
+\makeatletter
+\renewcommand{\tableofcontents}{%
+\chapter*{%
+\vspace*{-20\p@}%
+\begin{tikzpicture}[remember picture, overlay]%
+\pgftext[right,x=15cm,y=0.2cm]{\Huge\sc\bfseries \contentsname};%
+\draw[fill=black,draw=black] (12.5,-.75) rectangle (15.5,1);%
+\clip (12.5,-.75) rectangle (18,1);
+\pgftext[right,x=15cm,y=0.2cm]{\color{white}\Huge\bfseries \contentsname};%
+\end{tikzpicture}}%
+\@starttoc{toc}}
+\makeatother
+
+\RequirePackage{tikzpagenodes,eso-pic}
+\newcommand{\chaptertoc}{%
+\AddToShipoutPictureFG*{%
+\begin{tikzpicture}[overlay]
+  \coordinate (NE) at ($(current page text area.north east)+(-59mm,-14.5cm)$);
+  \coordinate (SE) at ($(current page text area.south east)+(-59mm,0)$);
+  \draw[magenta!80!black] ([xshift=0.5\marginparsep]NE) -- ([xshift=0.5\marginparsep]SE);
+\end{tikzpicture}%
+}%
+\marginpar{%
+\vspace*{8mm}
+\begin{minipage}{\dimexpr\marginparwidth+4mm}
+\begin{flushleft}
+\localtableofcontents
+\end{flushleft}
+\end{minipage}%
+}%
+}
+
+% ===================================================================
+%  14. ΣΤΥΛ ΚΕΦΑΛΑΙΟΥ & ΕΝΟΤΗΤΩΝ
+% ===================================================================
+\newcommand{\chapterimagefile}{example-image-b} % Προεπιλεγμένη εικόνα
+\newcommand{\setchapterimage}[1]{\renewcommand{\chapterimagefile}{#1}}
+
+\definecolor{chapterbg}{HTML}{125e6c}
+\newcommand*\chapterlabel{}
+\newcommand{\fancychapter}{%
+\titleformat{\chapter}
+{\normalfont\huge }
+{\gdef\chapterlabel{\thechapter\ }}{0pt}
+{\begin{tikzpicture}[remember picture, overlay]
+    \node[anchor=north, inner sep=0pt, name=headerimage,outer sep=0pt] at (current page.north) {
+        \includegraphics[width=\paperwidth, trim={0 0pt 0 0}, clip]{\chapterimagefile}
+    };
+    \node[
+        name=chnumber,fill=maincolor!50!black, opacity=0.7,text=white,anchor=north west,outer sep=0pt,
+        rotate=90,font=\sffamily\bfseries,minimum height=1.5cm,minimum width=3.5cm,inner sep=20pt
+    ] at (headerimage.south west) {\titlefont{Κεφάλαιο {\Huge \thechapter}} };
+    \node[
+        name=chtitle,anchor=north west,fill=maincolor!50!black,outer sep=0pt,
+        minimum width=\paperwidth-2cm,
+        minimum height=2.5cm,text=white,font=\sffamily\bfseries
+    ] at (chnumber.south west) {\titlefont{
+\begin{minipage}{\paperwidth-4cm}
+##1
+\end{minipage}
+}};
+\fill[maincolor!30!black,anchor=north] (headerimage.south west) rectangle (chtitle.south west);
+    \fill[cyan,anchor=north] (chtitle.north west) rectangle ($(chtitle.north east)+(0,3mm)$);
+\end{tikzpicture}
+\vspace{9cm}
+}
+}
+\apptocmd{\mainmatter}{\fancychapter}{}{}
+
+\titleformat{\section}{\Large}{\titlefont{\textbf{\thesection}}}{10pt}{\Large\titlefont{\textbf{#1}}}
+
+\titleformat{\paragraph}{\large}{}{0em}{\textcolor{maincolor}{\faSquare\ \ \titlefont{\bmath{#1}}}}
+\titlespacing{\paragraph}{0mm}{2mm}{2mm}
+
+% ===================================================================
+%  15. ΒΟΗΘΗΤΙΚΕΣ ΕΝΤΟΛΕΣ
+% ===================================================================
+\newcommand{\eng}[1]{\selectlanguage{english}#1\selectlanguage{greek}}
+\newcommand{\tss}[1]{\textsuperscript{#1}}
+\newcommand{\tssL}[1]{\MakeLowercase{\textsuperscript{#1}}}
+\newcommand{\full}[1]{\begin{mdframed}[outermargin=\dimexpr-\marginparwidth-\marginparsep\relax,innerleftmargin=0mm,innerrightmargin=0mm,hidealllines=true] #1 \end{mdframed}}
+\newcommand{\fulltwoc}[1]{\begin{adjmulticols}{2}{5mm}{\dimexpr-\marginparwidth-\marginparsep+5mm\relax} #1 \end{adjmulticols}}
+
+% ===================================================================
+%  ΤΕΛΟΣ PREAMBLE
+% ===================================================================
