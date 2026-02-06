@@ -13,6 +13,10 @@
 \DeclareOption{G}{\newcommand{\type}{G}}
 \DeclareOption{H}{\newcommand{\type}{H}}
 \DeclareOption{I}{\newcommand{\type}{I}}
+\DeclareOption{J}{\newcommand{\type}{J}}
+\DeclareOption{K}{\newcommand{\type}{K}}
+\DeclareOption{L}{\newcommand{\type}{L}}
+\DeclareOption{M}{\newcommand{\type}{M}}
 
 \ProcessOptions\relax
 \LoadClass[a4paper,11pt]{article}
@@ -78,43 +82,59 @@
 \def\typos{Α - ΘΕΜΑΤΑ ΘΕΩΡΙΑΣ}}{}
 \ifthenelse{\equal{\type}{B}}
 {\definecolor{maincolor}{HTML}{007aa7}
-\def\perigrafi{}
+\def\perigrafi{Τα διαγωνίσματα "Τύπου Β" αποτελούνται από γενικά θέματα που καλύπτουν την τρέχουσα ύλη. Στόχος είναι ο περιοδικός έλεγχος της προόδου του μαθητή και η εξοικείωση με τη δομή των εξετάσεων.}
 \def\typos{Β - ΓΕΝΙΚΑ ΘΕΜΑΤΑ}}{}
 \ifthenelse{\equal{\type}{C}}
 {\definecolor{maincolor}{HTML}{00a700}
-\def\perigrafi{Τα διαγωνίσματα "Τύπου Γ" αποτελούνται από συνδυαστικά θέματα πάνω στην εξεταστέα ύλη της χρονιάς. Κάθε θέμα περιλαμβάνει διάφορά τμήματα της ύλης και αποτελείται απο διαδοχικά ερωτήματα. Βαθμολογείται με 4/20 μοναδες για το γυμνάσιο και 25/100 μονάδες για το λύκειο.}
+\def\perigrafi{Τα διαγωνίσματα "Τύπου Γ" αποτελούνται από συνδυαστικά θέματα πάνω στην εξεταστέα ύλη της χρονιάς. Κάθε θέμα περιλαμβάνει διάφορα τμήματα της ύλης και αποτελείται από διαδοχικά ερωτήματα αυξανόμενης δυσκολίας.}
 \def\typos{Γ - ΣΥΝΔΥΑΣΤΙΚΑ ΘΕΜΑΤΑ}}{}
 \ifthenelse{\equal{\type}{D}}
 {\definecolor{maincolor}{HTML}{c7c700}
-\def\perigrafi{Τα διαγωνίσματα "Τύπου Δ" αποτελούνται αποκλειστικά απο προβλήματα. Δίνονται }
+\def\perigrafi{Τα διαγωνίσματα "Τύπου Δ" αποτελούνται αποκλειστικά από προβλήματα. Εστιάζουν στην ικανότητα του μαθητή να μετατρέπει λεκτικές περιγραφές σε μαθηματικά μοντέλα και να επιλύει σύνθετα σενάρια.}
 \def\typos{Δ - ΠΡΟΒΛΗΜΑΤΑ}}{}
 \ifthenelse{\equal{\type}{E}}
 {\definecolor{maincolor}{HTML}{e85d00}
-\def\perigrafi{Τα διαγωνίσματα "Τύπου Ε" είναι διαγνωστικά τέστ που διεξάγωνται στην αρχή της σχολικής χρονιάς με σκοπό την αξιολόγηση των γνώσεων του μαθητή στην περσινή ύλη. Καλύπτουν όσο το δυνατόν περισσότερο μέρος της εξεταστέας ύλης κατά κύριο λόγο της περασμένης χρονιάς αλλά και των προηγούμενων τάξεων.}
+\def\perigrafi{Τα διαγωνίσματα "Τύπου Ε" είναι διαγνωστικά τεστ που διεξάγονται στην αρχή της χρονιάς. Σκοπός είναι η αξιολόγηση των προαπαιτούμενων γνώσεων από προηγούμενες τάξεις και ο εντοπισμός τυχόν μαθησιακών κενών.}
 \def\typos{Ε - ΔΙΑΓΝΩΣΤΙΚΑ ΤΕΣΤ}}{}
 \ifthenelse{\equal{\type}{F}}
 {\definecolor{maincolor}{HTML}{aa00d4}
-\def\perigrafi{Τα διαγωνίσματα "Τύπου ΣΤ"}
+\def\perigrafi{Τα διαγωνίσματα "Τύπου ΣΤ" περιλαμβάνουν επιλεγμένες ασκήσεις και προβλήματα από το σχολικό βιβλίο. Στόχος είναι η πλήρης εμπέδωση της βασικής ύλης και των μεθοδολογιών που προτείνει το Υπουργείο Παιδείας.}
 \def\typos{ΣΤ - ΑΣΚΗΣΕΙΣ ΣΧΟΛΙΚΟΥ ΒΙΒΛΙΟΥ}}{}
 \ifthenelse{\equal{\type}{G}}
 {\definecolor{maincolor}{HTML}{0000ff}
-\def\perigrafi{Τα διαγωνίσματα "Τύπου Ζ"}
+\def\perigrafi{Τα διαγωνίσματα "Τύπου Ζ" αποτελούνται από αυθεντικά θέματα προηγούμενων ετών (ενδοσχολικών ή Πανελλαδικών εξετάσεων). Προσφέρουν μια ρεαλιστική εμπειρία των τελικών εξετάσεων.}
 \def\typos{Ζ - ΘΕΜΑΤΑ ΕΞΕΤΑΣΕΩΝ}}{}
 \ifthenelse{\equal{\type}{H}}
 {\definecolor{maincolor}{HTML}{4d4d4d}
-\def\perigrafi{Τα διαγωνίσματα "Τύπου Η"}
+\def\perigrafi{Τα διαγωνίσματα "Τύπου Η" περιλαμβάνουν θέματα αυξημένης δυσκολίας και πρωτοτυπίας. Απευθύνονται σε μαθητές που επιδιώκουν την άριστη επίδοση και την βαθύτερη κατανόηση των μαθηματικών εννοιών.}
 \def\typos{Η - ΑΥΞΗΜΕΝΗΣ ΔΥΣΚΟΛΙΑΣ}}{}
 \ifthenelse{\equal{\type}{I}}
 {\definecolor{maincolor}{HTML}{000000}
-\def\perigrafi{Τα διαγωνίσματα "Τύπου Θ"}
+\def\perigrafi{Τα διαγωνίσματα "Τύπου Θ" είναι προσαρμοσμένα στις απαιτήσεις των Μαθηματικών Διαγωνισμών (Θαλής, Ευκλείδης, Αρχιμήδης). Εστιάζουν στην κριτική σκέψη και την ευρηματικότητα.}
 \def\typos{Θ - ΜΑΘΗΜΑΤΙΚΟΙ ΔΙΑΓΩΝΙΣΜΟΙ}}{}
+\ifthenelse{\equal{\type}{J}}
+{\definecolor{maincolor}{HTML}{c92615}
+\def\perigrafi{Τα διαγωνίσματα "Τύπου Ι" αποτελούν Προσομοιώσεις Πανελλαδικών Εξετάσεων. Πρόκειται για 3ωρες δοκιμασίες που ακολουθούν πιστά τη δομή, τη βαθμολόηση και το ύφος των επίσημων εξετάσεων.}
+\def\typos{Ι - ΠΡΟΣΟΜΟΙΩΣΗ ΠΑΝΕΛΛΑΔΙΚΩΝ}}{}
+\ifthenelse{\equal{\type}{K}}
+{\definecolor{maincolor}{HTML}{ff9000}
+\def\perigrafi{Τα διαγωνίσματα "Τύπου Κ" είναι ολιγόλεπτα τεστ (Quiz) διάρκειας 15-20 λεπτών. Σκοπός τους είναι ο γρήγορος έλεγχος κατανόησης μιας συγκεκριμένης ενότητας ή μεθοδολογίας κατά τη διάρκεια του μαθήματος.}
+\def\typos{Κ - ΟΛΙΓΟΛΕΠΤΟ ΤΕΣΤ}}{}
+\ifthenelse{\equal{\type}{L}}
+{\definecolor{maincolor}{HTML}{1F2532}
+\def\perigrafi{Τα διαγωνίσματα "Τύπου Λ" είναι διαδραστικά φύλλα αξιολόγησης. Περιλαμβάνουν ψηφιακό υλικό και δυνατότητα πρόσβασης σε βιντεο-λύσεις των θεμάτων για την υποστήριξη της αυτοδιόρθωσης.}
+\def\typos{Λ - ΔΙΑΔΡΑΣΤΙΚΟ ΔΙΑΓΩΝΙΣΜΑ}}{}
+\ifthenelse{\equal{\type}{M}}
+{\definecolor{maincolor}{HTML}{004e64}
+\def\perigrafi{Τα διαγωνίσματα "Τύπου Μ" αφορούν την Ενισχυτική Διδασκαλία. Περιλαμβάνουν θέματα διαβαθμισμένης δυσκολίας με στόχο την σταδιακή κάλυψη βασικών κενών και την τόνωση της αυτοπεποίθησης του μαθητή.}
+\def\typos{Μ - ΕΝΙΣΧΥΤΙΚΗ ΔΙΔΑΣΚΑΛΙΑ}}{}
 
 
 \ifthenelse{\equal{\style}{classic}}
 {
 \newcommand{\titlos}[3]{
 	\pagenumbering{gobble}
-	\includepdf[pages=-,pagecommand={},width=\paperwidth]{\type.pdf}
+	% \includepdf[pages=-,pagecommand={},width=\paperwidth]{\type.pdf}
 	\perigrafi
 	\newpage
 	\pagenumbering{arabic}
@@ -235,7 +255,7 @@
     \node[text=white, opacity=0.12] at ([xshift=10.5cm, yshift=12.5cm]current page.south west) {\fontsize{12}{14}\selectfont $\displaystyle\int_{x_{0}}^{x}f(x)dx=F(x)-F(x_{0})$};
     \node[text=white, opacity=0.15] at ([xshift=6.5cm, yshift=9.5cm]current page.south west) {\fontsize{14}{16}\selectfont $\displaystyle\sum_{n=1}^{\infty}\frac{1}{n^{2}+1}=\frac{\pi^{2}}{12}$};
     \node[text=white, opacity=0.10] at ([xshift=3cm, yshift=8.5cm]current page.south west) {\fontsize{11}{13}\selectfont $\lim\limits_{t\to\infty}\ln t=\displaystyle\int_{1}^{\infty}\frac{1}{t}dt$};
-    \node[text=white, opacity=0.14] at ([xshift=8.5cm, yshift=5.2cm]current page.south west) {\fontsize{13}{15}\selectfont $\displaystyle\iint_{V}\nabla\cdot FdV=\iint_{S}F\cdot n dS$};
+    \node[text=white, opacity=0.14] at ([xshift=9.5cm, yshift=5.5cm]current page.south west) {\fontsize{13}{15}\selectfont $\displaystyle\iiint_{V}\nabla\cdot FdV=\oiint_{S}F\cdot n dS$};
     \node[text=white, opacity=0.12] at ([xshift=2.8cm, yshift=5.1cm]current page.south west) {\fontsize{12}{14}\selectfont $\displaystyle\oint_{C}f(z)dz$};
     \node[text=white, opacity=0.10] at ([xshift=16.2cm, yshift=5cm]current page.south west) {\fontsize{10}{12}\selectfont $\vec{PS}=\langle x^{2},\frac{x}{2}\rangle$};
     \node[text=white, opacity=0.13] at ([xshift=2cm, yshift=3.2cm]current page.south west) {\fontsize{13}{15}\selectfont $A=\bigcup_{n=1}^{\infty}A_{n}$};

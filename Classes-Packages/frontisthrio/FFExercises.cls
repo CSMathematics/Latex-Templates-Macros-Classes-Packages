@@ -14,6 +14,24 @@
 \RequirePackage[framemethod=TikZ]{mdframed}
 \sectionfont{\centering}
 
+\pgfmathdeclarefunction{gauss}{2}{%
+    \pgfmathparse{1/(#2*sqrt(2*pi))*exp(-((x-#1)^2)/(2*#2^2))}%
+}
+
+\RequirePackage{xfp} % Για αριθμητικές πράξεις
+
+\newcommand{\schoolyear}{%
+    \edef\currentyear{\the\year}% Αποθήκευση τρέχοντος έτους
+    \edef\currentmonth{\the\month}% Αποθήκευση τρέχοντος μήνα
+    % Αν ο μήνας είναι από Σεπτέμβριο (9) και μετά, είμαστε στην αρχή του σχολικού έτους
+    \ifnum\currentmonth>8
+        \currentyear\ - \fpeval{\currentyear + 1}%
+    \else
+        % Αν είναι από Ιανουάριο έως Αύγουστο, είμαστε στο δεύτερο μισό
+        \fpeval{\currentyear - 1} - \currentyear%
+    \fi
+}
+
 \RequirePackage{ifthen}
 \ifthenelse{\equal{\style}{classic}}
 {
@@ -33,7 +51,7 @@
 	\vspace{.5cm}
 	{\Large\bf\MakeUppercase{#1}}
 	\vspace{-2mm}
-	\section*{{\Huge \textcolor{xrwma}{#2}}}
+	\section*{{\Huge \textcolor{maincolor}{#2}}}
 	\vspace{-1mm}
 	{\Large\bf{\MakeUppercase{#3}}}
 	\end{center}
@@ -45,22 +63,167 @@
 \ifthenelse{\equal{\style}{modern}}
 {
 \newcommand{\titlos}[3]{
+	\pagenumbering{gobble}
+\begin{tikzpicture}[remember picture, overlay]
+
+    % --- 1. TOP SECTION: MATH ART BACKGROUND (Placeholder for Image) ---
+    % Instead of an external image, we generate a 3D wireframe plot
+    \begin{scope}
+        \clip (current page.north west) rectangle ([yshift=-15cm]current page.east);
+        
+        \node[anchor=north west, inner sep=0pt] at (current page.north west) {
+            \includegraphics[width=\paperwidth, height=17cm, keepaspectratio=false]{/home/spyros/Εικόνες/wallpapers/sebastian-boring-8zD7rs8UpxU-unsplash.jpg}};
+    \end{scope}
+
+
+    % --- 2. MIDDLE GEOMETRY: ORANGE ACCENTS ---
+    % The orange shapes that sit "behind" or flush with the dark shape
+
+    % Orange Main Polygon
+    \path[right color=maincolor!55!black, left color=maincolor] 
+        ([xshift=10cm, yshift=-14cm]current page.north west) -- 
+        ([xshift=22cm, yshift=-14cm]current page.north west) -- 
+        ([xshift=22cm, yshift=-20cm]current page.north west) -- 
+        ([xshift=17cm, yshift=-20cm]current page.north west) -- cycle;
+
+
+    % --- 3. MAIN DARK SHAPE (The "Cut") ---
+    % This is the complex polygon covering the bottom and left
+    
+    % Coordinates calculation relative to page
+    % Start from bottom left, go up, cut right, dip down, go right, close loop
+    \fill[corpDark] 
+        (current page.south west) -- 
+        (current page.south east) -- 
+        ([yshift=-17cm]current page.north east) -- % Bottom point of right side
+        ([xshift=-7cm, yshift=-17cm]current page.north east) -- % Flat part right
+        ([xshift=-12cm, yshift=-13cm]current page.north east) -- % Diagonal UP-Left
+        ([yshift=-13cm]current page.north west) -- % Top Left start of dark zone
+        cycle;
+
+    % --- 4. WHITE BORDER LINE (The Separation) ---
+    % Draws the thick white line that separates the image from the dark shape
+    \draw[white, line width=4pt] 
+        ([yshift=-13cm]current page.north west) -- 
+        ([xshift=9cm, yshift=-13cm]current page.north west) -- % Horizontal
+        ([xshift=14cm, yshift=-17cm]current page.north west) -- % Diagonal Down
+        ([xshift=22cm, yshift=-17cm]current page.north west);   % Horizontal to edge
+
+
+    % --- 5. LOGO & YEAR ---
+    
+    % Fake Logo
+    \node[anchor=north west] at ([xshift=1cm, yshift=-14cm]current page.north west) {
+	\begin{tikzpicture}[scale=0.7]
+        \fill[maincolor,yshift=-2mm](0,0) rectangle (2cm,2.4cm);
+		\node (fig1) at ($(0,0)+(0.21cm,1.9cm)$)
+		{\includegraphics[width=0.049\linewidth]{/home/spyros/Μαθηματικά/Φροντιστήριο ΦΙΛΟΜΑΘΕΙΑ/Βαθμοί - Φυλλάδιο ύλης - Διάφορα/Λογότυπα/logo.png}};
+		\node[white] at ($(0,0)+(2.4cm,2.3cm)$) {\titlefont{\fontsize{10}{12}\selectfont Φ\,ΡΟΝΤΙΣΤΗΡΙΟ ΜΕΣΗΣ ΕΚΠΑΙΔΕΥΣΗΣ}};
+		\node[white] at ($(0,0)+(2.3cm,1.7cm)$) {\titlefont{ {\fontsize{26}{33.6}\selectfont \textbf{Φ\,ΙΛΟΜΑΘΕΙΑ}}}};
+		\draw[white] (2.5,0.45)--($(2.4,0.45)+(7.7cm,0cm)$);
+		\node[white] at ($(0,0)+(2.5cm,0.5cm)$) {\textcolor{white}{\fontsize{10}{12}\selectfont\faMapMarker*\ \ Ιακώβου Πολυλά 24, Πεζόδρομος}};
+\end{tikzpicture}
+    };
+
+
+    % Year
+    \node[anchor=north west, text=white, align=left] at ([xshift=1cm, yshift=-17cm]current page.north west) {
+        \fontsize{28}{40}\selectfont \titlefont{\textbf{#2}}\\[1mm]  \fontsize{32}{40}\selectfont \titlefont{\textcolor{maincolor}{#1}}
+    };
+
+
+    % --- 6. MAIN TITLE ---
+    \node[anchor=north west, text=white, align=left] at ([xshift=1cm, yshift=-7cm]current page.west) {
+        \fontsize{14}{16}\selectfont \titlefont{ΦΥΛΛΑΔΙΟ \textcolor{secondarycolor}{ΑΣΚΗΣΕΩΝ}}\\[0.8em]
+        \fontsize{38}{40}\selectfont \textbf{\textcolor{maincolor}{#3}}\\[0.4em]
+        \fontsize{14}{16}\selectfont \titlefont{\textcolor{white}{\textbf{ΣΧΟΛΙΚΟ ΕΤΟΣ \schoolyear}}}
+    };
+
+    % --- 7. DECORATIVE FORMULAS ---
+    % Subtly placed formulas in the dark area
+    \node[anchor=west, text=white, opacity=0.15] at ([xshift=14.5cm, yshift=7cm]current page.south west) {
+        \fontsize{14}{36}\selectfont $i\hbar \frac{\partial}{\partial t}\Psi = \hat{H}\Psi$
+    };
+    
+    \node[anchor=west, text=white, opacity=0.15] at ([xshift=9.7cm, yshift=8.5cm]current page.south west) {
+        \fontsize{12}{40}\selectfont $\nabla \times \mathbf{E} = -\frac{\partial \mathbf{B}}{\partial t}$
+    };
+    % Group 1: Original PDF formulas (Concentrated)
+    \node[text=white, opacity=0.12] at ([xshift=10.5cm, yshift=12.5cm]current page.south west) {\fontsize{12}{14}\selectfont $\displaystyle\int_{x_{0}}^{x}f(x)dx=F(x)-F(x_{0})$};
+    \node[text=white, opacity=0.15] at ([xshift=6.5cm, yshift=9.5cm]current page.south west) {\fontsize{14}{16}\selectfont $\displaystyle\sum_{n=1}^{\infty}\frac{1}{n^{2}+1}=\frac{\pi^{2}}{12}$};
+    \node[text=white, opacity=0.10] at ([xshift=3cm, yshift=8.5cm]current page.south west) {\fontsize{11}{13}\selectfont $\lim\limits_{t\to\infty}\ln t=\displaystyle\int_{1}^{\infty}\frac{1}{t}dt$};
+    \node[text=white, opacity=0.14] at ([xshift=9.5cm, yshift=5.5cm]current page.south west) {\fontsize{13}{15}\selectfont $\displaystyle\iiint_{V}\nabla\cdot FdV=\oiint_{S}F\cdot n dS$};
+    \node[text=white, opacity=0.12] at ([xshift=2.8cm, yshift=5.1cm]current page.south west) {\fontsize{12}{14}\selectfont $\displaystyle\oint_{C}f(z)dz$};
+    \node[text=white, opacity=0.10] at ([xshift=16.2cm, yshift=5cm]current page.south west) {\fontsize{10}{12}\selectfont $\vec{PS}=\langle x^{2},\frac{x}{2}\rangle$};
+    \node[text=white, opacity=0.13] at ([xshift=2cm, yshift=3.2cm]current page.south west) {\fontsize{13}{15}\selectfont $A=\bigcup_{n=1}^{\infty}A_{n}$};
+
+    % Group 2: Fundamental Math & Constants (Concentrated)
+    \node[text=white, opacity=0.15] at ([xshift=9.2cm, yshift=8.1cm]current page.south west) {\fontsize{14}{16}\selectfont $e^{i\pi} + 1 = 0$};
+    \node[text=white, opacity=0.11] at ([xshift=5.8cm, yshift=2.5cm]current page.south west) {\fontsize{12}{14}\selectfont $f(x) = \displaystyle\sum_{n=0}^{\infty} \frac{f^{(n)}(a)}{n!} (x-a)^n$};
+    \node[text=white, opacity=0.12] at ([xshift=15cm, yshift=11.8cm]current page.south west) {\fontsize{11}{13}\selectfont $V - E + F = 2$};
+    \node[text=white, opacity=0.10] at ([xshift=8.1cm, yshift=1.8cm]current page.south west) {\fontsize{14}{16}\selectfont $\nabla^2 \Phi = \frac{\rho}{\epsilon_0}$};
+    \node[text=white, opacity=0.12] at ([xshift=10.5cm, yshift=3.2cm]current page.south west) {\fontsize{10}{12}\selectfont $\zeta(s) = \displaystyle\sum_{n=1}^{\infty} n^{-s}$};
+
+    % Group 3: 20 New Formulas (Concentrated area)
+    \node[text=white, opacity=0.12] at ([xshift=2cm, yshift=1.8cm]current page.south west) {\fontsize{11}{13}\selectfont $E = mc^2$};
+    \node[text=white, opacity=0.10] at ([xshift=18.2cm, yshift=8cm]current page.south west) {\fontsize{10}{12}\selectfont $G_{\mu\nu} + \Lambda g_{\mu\nu} = \kappa T_{\mu\nu}$};
+    \node[text=white, opacity=0.13] at ([xshift=1.8cm, yshift=9.8cm]current page.south west) {\fontsize{12}{14}\selectfont $\hat{H}\Psi = E\Psi$};
+    \node[text=white, opacity=0.11] at ([xshift=12.8cm, yshift=6.4cm]current page.south west) {\fontsize{13}{15}\selectfont $P(A|B) = \frac{P(B|A)P(A)}{P(B)}$};
+    \node[text=white, opacity=0.14] at ([xshift=11.5cm, yshift=10cm]current page.south west) {\fontsize{12}{14}\selectfont $\sin^2{x}+\cos^2{x}=1$};
+    \node[text=white, opacity=0.10] at ([xshift=11.2cm, yshift=7.3cm]current page.south west) {\fontsize{10}{12}\selectfont $S = k_B \ln W$};
+    \node[text=white, opacity=0.12] at ([xshift=4.1cm, yshift=4.3cm]current page.south west) {\fontsize{13}{15}\selectfont $a^n + b^n = c^n$};
+    \node[text=white, opacity=0.10] at ([xshift=9.5cm, yshift=9.4cm]current page.south west) {\fontsize{11}{13}\selectfont $R_{\mu\nu} = 0$};
+    \node[text=white, opacity=0.13] at ([xshift=6.2cm, yshift=1.2cm]current page.south west) {\fontsize{14}{16}\selectfont $\mathcal{F}\{f\}(\xi) = \displaystyle\int f(x)e^{-2\pi ix\xi}dx$};
+    \node[text=white, opacity=0.11] at ([xshift=11.2cm, yshift=4.1cm]current page.south west) {\fontsize{10}{12}\selectfont $\Delta x \Delta p \ge \frac{\hbar}{2}$};
+    \node[text=white, opacity=0.10] at ([xshift=11.8cm, yshift=2.1cm]current page.south west) {\fontsize{12}{14}\selectfont $\Gamma(z) = \displaystyle\int_0^\infty t^{z-1}e^{-t}dt$};
+    \node[text=white, opacity=0.14] at ([xshift=13.8cm, yshift=8cm]current page.south west) {\fontsize{13}{15}\selectfont $\chi = \frac{1}{2\pi}\displaystyle\int K dA$};
+    \node[text=white, opacity=0.12] at ([xshift=7cm, yshift=3.9cm]current page.south west) {\fontsize{11}{13}\selectfont $pv = nRT$};
+    \node[text=white, opacity=0.11] at ([xshift=14.2cm, yshift=10.8cm]current page.south west) {\fontsize{14}{16}\selectfont $\det(A-\lambda I) = 0$};
+    \node[text=white, opacity=0.13] at ([xshift=18cm, yshift=5.9cm]current page.south west) {\fontsize{12}{14}\selectfont $\frac{DF}{dt} = \frac{\partial F}{\partial t} + (v \cdot \nabla)F$};
+    \node[text=white, opacity=0.11] at ([xshift=12.2cm, yshift=4.6cm]current page.south west) {\fontsize{10}{12}\selectfont $\displaystyle\int e^{-x^2} dx = \sqrt{\pi}$};
+    \node[text=white, opacity=0.15] at ([xshift=16.8cm, yshift=9.2cm]current page.south west) {\fontsize{11}{13}\selectfont $\mathbf{F} = q(\mathbf{E} + \mathbf{v} \times \mathbf{B})$};
+    \node[text=white, opacity=0.10] at ([xshift=17.5cm, yshift=10.3cm]current page.south west) {\fontsize{14}{14}\selectfont $x = \frac{-b \pm \sqrt{\Delta}}{2a}$};
+    \node[text=white, opacity=0.12] at ([xshift=12cm, yshift=1cm]current page.south west) {\fontsize{10}{12}\selectfont $A=\LEFTRIGHT{\{}{\}}{\nu+\dfrac{1}{\nu}\ ,\ \nu\in\mathbb{N}^*}$};
+    \node[text=white, opacity=0.12] at ([xshift=8.8cm, yshift=11.2cm]current page.south west) {\fontsize{13}{15}\selectfont $H = -\displaystyle\sum p_i \log p_i$};
+
+    % --- 8. FOOTER / CONTACT INFO ---
+    % Vertical Yellow Bar
+    \path[bottom color=maincolor!80!black, top color=secondarycolor!80] ([xshift=15cm, yshift=0cm]current page.south west) rectangle ([xshift=15.5cm, yshift=3.7cm]current page.south west);
+    
+    % Contact Text
+    \node[anchor=south west, text=white, align=left] at ([xshift=14.75cm, yshift=.5cm]current page.south west) {
+        \fontsize{9}{12}\selectfont
+		\begin{tabular}{cl}
+		 & \textbf{ΕΠΙΚΟΙΝΩΝΙΑ} \\[1mm]
+		\faPhone* & 26610 20144\\[1mm]
+		\faEnvelope & \eng{frontistirio.filomatheia@gmail.com} \\[1mm]
+		\faMobile* & 693 232 7283\ \ \ \faTelegram\ \faViber\\[1mm]
+		\faFacebook & Φροντιστήριο Φιλομάθεια\\[1mm]
+		\faInstagram & \eng{filomatheia\_kerkyra}
+		\end{tabular}        
+    };
+
+\end{tikzpicture}
+\newpage
+\mbox{}
+	\newpage
+	\pagenumbering{arabic}
 	\twocolumn[{
 		\begin{tikzpicture}[overlay,remember picture]
-		\fill[xrwma]($(current page.north west)$)--($(current page.north west)+(2cm,0)$)--($(current page.north west)+(2cm,-2.4cm)$)--($(current page.north west)+(-2cm,-2.4cm)$)--cycle;
+		\fill[maincolor]($(current page.north west)$)--($(current page.north west)+(2cm,0)$)--($(current page.north west)+(2cm,-2.4cm)$)--($(current page.north west)+(-2cm,-2.4cm)$)--cycle;
 		\node (fig1) at ($(current page.north west)+(1cm,-1.2cm)$)
 		{\includegraphics[width=0.07\linewidth]{logo.png}};
-		\node[gray2] at ($(0,0)+(-2.4cm,1.5cm)$) {\kerkissans{Φ\,ΡΟΝΤΙΣΤΗΡΙΟ ΜΕΣΗΣ ΕΚΠΑΙΔΕΥΣΗΣ}};
-		\node[xrwma] at ($(0,0)+(-2.4cm,.9cm)$) {\kerkissans{\huge {\fontsize{28}{33.6}\selectfont Φ\,ΙΛΟΜΑΘΕΙΑ}}};
+		\node[gray2] at ($(0,0)+(-2.4cm,1.5cm)$) {\titlefont{Φ\,ΡΟΝΤΙΣΤΗΡΙΟ ΜΕΣΗΣ ΕΚΠΑΙΔΕΥΣΗΣ}};
+		\node[maincolor] at ($(0,0)+(-2.4cm,.9cm)$) {\titlefont{\huge {\fontsize{28}{33.6}\selectfont Φ\,ΙΛΟΜΑΘΕΙΑ}}};
 		\draw[gray4] (-5.2,.4)--(.4,.4);
-		\node at ($(0,0)+(-2.4cm,0cm)$) {\textcolor{xrwma}{\faMapMarker*} Ιακώβου Πολυλά 24, Πεζόδρομος};
-		\node (title) at ($(current page.north east)+(-3.5cm,-.7cm)$){\textcolor{gray2}{ \kerkissans{\LARGE Φ\,ΥΛΛΑΔΙΟ ΑΣΚΗΣΕΩΝ}}};
-		\node[below=of title.east,anchor=east,yshift=3mm] (mob) {\textcolor{xrwma}{\faPhone*} 26610 20144 - \textcolor{xrwma}{\faMobile*\ \faTelegram\ \faViber} 693 232 7283};
-		\node[below=of mob.east,anchor=east,yshift=4mm] (fb) {\textcolor{xrwma}{\faFacebook} Φροντιστήριο Φιλομάθεια - \textcolor{xrwma}{\faInstagram}\ {\eng{front\_filomatheia}}};
+		\node at ($(0,0)+(-2.4cm,0cm)$) {\textcolor{maincolor}{\faMapMarker*} Ιακώβου Πολυλά 24, Πεζόδρομος};
+		\node (title) at ($(current page.north east)+(-3.5cm,-.7cm)$){\textcolor{gray2}{ \titlefont{\LARGE Φ\,ΥΛΛΑΔΙΟ ΑΣΚΗΣΕΩΝ}}};
+		\node[below=of title.east,anchor=east,yshift=3mm] (mob) {\textcolor{maincolor}{\faPhone*} 26610 20144 - \textcolor{maincolor}{\faMobile*\ \faTelegram\ \faViber} 693 232 7283};
+		\node[below=of mob.east,anchor=east,yshift=4mm] (fb) {\textcolor{maincolor}{\faFacebook} Φροντιστήριο Φιλομάθεια - \textcolor{maincolor}{\faInstagram}\ {\eng{front\_filomatheia}}};
 		\end{tikzpicture}
 		\vspace{10mm}\mbox{}\\
 		\centering
-		\kerkissans{{\huge #1 - #2}\\\vspace{2mm} {\LARGE #3}}\\\vspace{4mm}{\kerkissans{\today}}\\\vspace{3mm}
+		\titlefont{{\huge #1 - #2}\\\vspace{2mm} {\LARGE #3}}\\\vspace{4mm}{\titlefont{\today}}\\\vspace{3mm}
 	}]
 }
 }
@@ -69,7 +232,7 @@
 \newcommand{\Askhsh}[1]{\noindent\textcolor{black}{
 \Large{\scfont\textsc{#1}}}\\}{}
 %---------------------------
-\newcommand{\lysh}{\textbf{\textcolor{xrwma}{ΛΥΣΗ}}}
+\newcommand{\lysh}{\textbf{\textcolor{maincolor}{ΛΥΣΗ}}}
 
 \newlist{alist}{enumerate}{3}
 \setlist[alist]{itemsep=0mm,label=\alph*.}
@@ -80,7 +243,7 @@
 \newlist{bAlist}{enumerate}{3}
 \setlist[bAlist]{itemsep=0mm,label=\bf\Alph*.}
 \newlist{rlist}{enumerate}{3}
-\setlist[rlist]{itemsep=0mm,label=\textcolor{xrwma}{\roman*.}}
+\setlist[rlist]{itemsep=0mm,label=\textcolor{maincolor}{\roman*.}}
 
 
 \newcommand{\ekthetesdeiktes}{
@@ -109,32 +272,32 @@
 
 \newcommand{\thewria}{
 \begin{center}
-{\textbf{\textcolor{xrwma}{\Large ΘΕΩΡΙΑ - ΕΡΩΤΗΣΕΙΣ ΚΑΤΑΝΟΗΣΗΣ}}}
+{\textbf{\textcolor{maincolor}{\Large ΘΕΩΡΙΑ - ΕΡΩΤΗΣΕΙΣ ΚΑΤΑΝΟΗΣΗΣ}}}
 \end{center}}
 \newcommand{\askhseis}{
 \begin{center}
-{\textbf{\textcolor{xrwma}{\Large ΑΣΚΗΣΕΙΣ - ΠΡΟΒΛΗΜΑΤΑ}}}
+{\textbf{\textcolor{maincolor}{\Large ΑΣΚΗΣΕΙΣ - ΠΡΟΒΛΗΜΑΤΑ}}}
 \end{center}}
-\setlist[enumerate]{label=\bf\textcolor{xrwma}{\large \arabic*.}}
+\setlist[enumerate]{label=\bf\textcolor{maincolor}{\large \arabic*.}}
 \newcommand{\twocolkentro}[1]{
 \twocolumn[
 \begin{@twocolumnfalse}
 #1
 \end{@twocolumnfalse}]}
 
-\newcommand{\kerkissans}[1]{{\fontfamily{maksf}\selectfont \textbf{#1}}}
+\newcommand{\titlefont}[1]{{\fontfamily{maksf}\selectfont \textbf{#1}}}
 
 \newcounter{askhsh}
 \setcounter{askhsh}{1}
 \newcommand{\askhsh}{{\large\theaskhsh.}\ \addtocounter{askhsh}{1}}
 \RequirePackage[explicit]{titlesec}
-%\titleformat{\section}{\Large}{\kerkissans{\thesection}}{10pt}{\Large\kerkissans{#1}}
+%\titleformat{\section}{\Large}{\titlefont{\thesection}}{10pt}{\Large\titlefont{#1}}
 
 \setlength{\columnsep}{5mm}
 \titleformat{\paragraph}
 {\large}%
 {}{0em}%
-{\textcolor{xrwma}{\faSquare\ \ \kerkissans{\bmath{#1}}}}
+{\textcolor{maincolor}{\faSquare\ \ \titlefont{\bmath{#1}}}}
 \setlength{\parindent}{0pt}
 \titlespacing{\paragraph}{0mm}{2mm}{2mm}
 \newcommand{\eng}[1]{\selectlanguage{english}#1\selectlanguage{greek}}
@@ -150,14 +313,14 @@
 
 \NewTblrEnviron{mytblr}
 \SetTblrStyle{firsthead}{font=\bfseries}
-\SetTblrStyle{firstfoot}{fg=xrwma}
+\SetTblrStyle{firstfoot}{fg=maincolor}
 \SetTblrOuter[mytblr]{theme=mytabletheme}
 \SetTblrInner[mytblr]{
 rowspec={t{7mm}},columns = {c},
 width = 0.85\linewidth,
-row{odd} = {bg=xrwma!50!white,fg=black,ht=8mm},
-row{even} = {bg=xrwma!30!white,fg=black,ht=8mm},
+row{odd} = {bg=maincolor!50!white,fg=black,ht=8mm},
+row{even} = {bg=maincolor!30!white,fg=black,ht=8mm},
 hlines={white},vlines={white},
-row{1} = {bg=xrwma, fg=white, font=\bfseries\fontfamily{maksf}},rowhead = 1,
+row{1} = {bg=maincolor, fg=white, font=\bfseries\fontfamily{maksf}},rowhead = 1,
 hline{2} = {.7mm}, % midrule  
 }
