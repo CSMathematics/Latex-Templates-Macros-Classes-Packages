@@ -91,8 +91,8 @@
         \fill[maincolor,yshift=-2mm](0,0) rectangle (2cm,2.4cm);
 		\node (fig1) at ($(0,0)+(0.21cm,1.9cm)$)
 		{\includegraphics[width=0.049\linewidth]{/home/spyros/Μαθηματικά/Φροντιστήριο ΦΙΛΟΜΑΘΕΙΑ/Βαθμοί - Φυλλάδιο ύλης - Διάφορα/Λογότυπα/logo.png}};
-		\node[white] at ($(0,0)+(2.4cm,2.3cm)$) {\titlefont{\fontsize{10}{12}\selectfont Φ\,ΡΟΝΤΙΣΤΗΡΙΟ ΜΕΣΗΣ ΕΚΠΑΙΔΕΥΣΗΣ}};
-		\node[white] at ($(0,0)+(2.3cm,1.7cm)$) {\titlefont{ {\fontsize{26}{33.6}\selectfont \textbf{Φ\,ΙΛΟΜΑΘΕΙΑ}}}};
+		\node[white] at ($(0,0)+(2.4cm,2.3cm)$) {\titlefont{\fontsize{10}{12}\selectfont ΦΡΟΝΤΙΣΤΗΡΙΟ ΜΕΣΗΣ ΕΚΠΑΙΔΕΥΣΗΣ}};
+		\node[white] at ($(0,0)+(2.3cm,1.7cm)$) {\titlefont{ {\fontsize{26}{33.6}\selectfont \textbf{ΦΙΛΟΜΑΘΕΙΑ}}}};
 		\draw[white] (2.5,0.45)--($(2.4,0.45)+(7.7cm,0cm)$);
 		\node[white] at ($(0,0)+(2.5cm,0.5cm)$) {\textcolor{white}{\fontsize{10}{12}\selectfont\faMapMarker*\ \ Ιακώβου Πολυλά 24, Πεζόδρομος}};
     \end{tikzpicture}
@@ -107,7 +107,7 @@
     \node[anchor=north west, text=white, align=left] at ([xshift=1cm, yshift=-7cm]current page.west) {
         \fontsize{14}{16}\selectfont \titlefont{ΦΥΛΛΑΔΙΟ \textcolor{secondarycolor}{ΑΣΚΗΣΕΩΝ}}\\[0.8em]
         \fontsize{38}{40}\selectfont \textbf{\textcolor{maincolor}{#3}}\\[0.4em]
-        \fontsize{14}{16}\selectfont \titlefont{\textcolor{white}{\textbf{ΣΧΟΛΙΚΟ ΕΤΟΣ \schoolyear}}}
+        \fontsize{14}{16}\selectfont {\titlefont{\textcolor{white}{\textbf{ΣΧΟΛΙΚΟ ΕΤΟΣ \schoolyear}}}}
     };
 
     % --- 8. FOOTER / CONTACT INFO ---
@@ -120,10 +120,10 @@
 		\begin{tabular}{cl}
 		 & \textbf{ΕΠΙΚΟΙΝΩΝΙΑ} \\[1mm]
 		\faPhone* & 26610 20144\\[1mm]
-		\faEnvelope & \eng{frontistirio.filomatheia@gmail.com} \\[1mm]
+		\faEnvelope & {frontistirio.filomatheia@gmail.com} \\[1mm]
 		\faMobile* & 693 232 7283\ \ \ \faTelegram\ \faViber\\[1mm]
 		\faFacebook & Φροντιστήριο Φιλομάθεια\\[1mm]
-		\faInstagram & \eng{filomatheia\_kerkyra}
+		\faInstagram & {filomatheia\_kerkyra}
 		\end{tabular}        
     };
 \end{tikzpicture}
@@ -133,20 +133,20 @@
 	\pagenumbering{arabic}
 	\twocolumn[{
 		\begin{tikzpicture}[overlay,remember picture]
-		\fill[maincolor]($(current page.north west)$)--($(current page.north west)+(2cm,0)$)--($(current page.north west)+(2cm,-2.4cm)$)--($(current page.north west)+(-2cm,-2.4cm)$)--cycle;
-		\node (fig1) at ($(current page.north west)+(1cm,-1.2cm)$)
-		{\includegraphics[width=0.07\linewidth]{logo.png}};
-		\node[gray2] at ($(0,0)+(-2.4cm,1.5cm)$) {\titlefont{Φ\,ΡΟΝΤΙΣΤΗΡΙΟ ΜΕΣΗΣ ΕΚΠΑΙΔΕΥΣΗΣ}};
-		\node[maincolor] at ($(0,0)+(-2.4cm,.9cm)$) {\titlefont{\huge {\fontsize{28}{33.6}\selectfont Φ\,ΙΛΟΜΑΘΕΙΑ}}};
-		\draw[gray4] (-5.2,.4)--(.4,.4);
-		\node at ($(0,0)+(-2.4cm,0cm)$) {\textcolor{maincolor}{\faMapMarker*} Ιακώβου Πολυλά 24, Πεζόδρομος};
-		\node (title) at ($(current page.north east)+(-3.5cm,-.7cm)$){\textcolor{gray2}{ \titlefont{\LARGE Φ\,ΥΛΛΑΔΙΟ ΑΣΚΗΣΕΩΝ}}};
-		\node[below=of title.east,anchor=east,yshift=3mm] (mob) {\textcolor{maincolor}{\faPhone*} 26610 20144 - \textcolor{maincolor}{\faMobile*\ \faTelegram\ \faViber} 693 232 7283};
-		\node[below=of mob.east,anchor=east,yshift=4mm] (fb) {\textcolor{maincolor}{\faFacebook} Φροντιστήριο Φιλομάθεια - \textcolor{maincolor}{\faInstagram}\ {\eng{front\_filomatheia}}};
-		\end{tikzpicture}
-		\vspace{10mm}\mbox{}\\
-		\centering
-		\titlefont{{\huge #1 - #2}\\\vspace{2mm} {\LARGE #3}}\\\vspace{4mm}{\titlefont{\today}}\\\vspace{3mm}
+	\fill[maincolor]($(current page.north west)$)--($(current page.north west)+(2cm,0)$)--($(current page.north west)+(2cm,-2.4cm)$)--($(current page.north west)+(-2cm,-2.4cm)$)--cycle;
+	\node (fig1) at ($(current page.north west)+(1cm,-1.2cm)$)
+	{\includegraphics[width=0.07\linewidth]{logo.png}};
+	\node[gray2] at ($(0,0)+(-2.4cm,1.5cm)$) {\titlefont{\fontsize{9}{16}\selectfont ΦΡΟΝΤΙΣΤΗΡΙΟ ΜΕΣΗΣ ΕΚΠΑΙΔΕΥΣΗΣ}};
+	\node[maincolor] at ($(0,0)+(-2.4cm,0.9cm)$) {\titlefont{{\fontsize{24}{30}\selectfont \textbf{ΦΙΛΟΜΑΘΕΙΑ}}}};
+	\draw[gray4] (-5.2,.4)--(.4,.4);
+	\node at ($(0,0)+(-2.4cm,0cm)$) {\textcolor{maincolor}{\faMapMarker*} Ιακώβου Πολυλά 24, Πεζόδρομος};
+	\node (title) at ($(current page.north east)+(-3.4cm,-.7cm)$){\textcolor{gray2}{ \titlefont{\fontsize{14}{33.6}\selectfont ΦΥΛΛΑΔΙΟ ΑΣΚΗΣΕΩΝ}}};
+	\node[below=of title.east,anchor=east,yshift=3mm] (mob) {\textcolor{maincolor}{\faPhone*} 26610 20144 - \textcolor{maincolor}{\faMobile*\ \faTelegram\ \faViber} 693 232 7283};
+	\node[below=of mob.east,anchor=east,yshift=4mm] (fb) {\textcolor{maincolor}{\faFacebook} Φροντιστήριο Φιλομάθεια - \textcolor{maincolor}{\faInstagram}\ {front\_filomatheia}};
+	\end{tikzpicture}
+	\vspace{10mm}\mbox{}\\
+	\centering
+	{\titlefont{{\large #1 - #2}}}\\\vspace{2mm} {\fontsize{24}{33.6}\selectfont #3}\\\vspace{4mm}{\titlefont{\today}}\\\vspace{3mm}
 	}]
 }
 }
@@ -208,7 +208,7 @@
 #1
 \end{@twocolumnfalse}]}
 
-\newcommand{\titlefont}[1]{{\fontfamily{maksf}\selectfont \textbf{#1}}}
+% \newcommand{\titlefont}[1]{{\fontfamily{maksf}\selectfont \textbf{#1}}}
 
 \newcounter{askhsh}
 \setcounter{askhsh}{1}
@@ -223,7 +223,6 @@
 {\textcolor{maincolor}{\faSquare\ \ \titlefont{\bmath{#1}}}}
 \setlength{\parindent}{0pt}
 \titlespacing{\paragraph}{0mm}{2mm}{2mm}
-\newcommand{\eng}[1]{\selectlanguage{english}#1\selectlanguage{greek}}
 
 \DeclareTblrTemplate{caption}{nocaptemplate}{}
 \DeclareTblrTemplate{capcont}{nocaptemplate}{}

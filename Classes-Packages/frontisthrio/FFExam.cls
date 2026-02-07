@@ -168,50 +168,23 @@
 \pagenumbering{gobble}
 
 \begin{tikzpicture}[remember picture, overlay]
-
     % --- 1. TOP SECTION: MATH ART BACKGROUND (Placeholder for Image) ---
-    % Instead of an external image, we generate a 3D wireframe plot
     \begin{scope}
         \clip (current page.north west) rectangle ([yshift=-15cm]current page.east);
-        
         \node[anchor=north west, inner sep=0pt] at (current page.north west) {
-            \includegraphics[width=\paperwidth, height=17cm, keepaspectratio=false]{/home/spyros/Εικόνες/wallpapers/braden-jarvis-prSogOoFmkw-unsplash.jpg}};
+            \includegraphics[width=\paperwidth, height=17cm, keepaspectratio=false]{/home/spyros/Εικόνες/wallpapers/sebastian-boring-8zD7rs8UpxU-unsplash.jpg}};
     \end{scope}
-
-
-    % --- 2. MIDDLE GEOMETRY: ORANGE ACCENTS ---
-    % The orange shapes that sit "behind" or flush with the dark shape
-
-    % Orange Main Polygon
-    \path[bottom color=maincolor!80!black, top color=maincolor!80, opacity=0.7] 
+        % --- 2. MIDDLE GEOMETRY: ORANGE ACCENTS ---
+        % Orange Main Polygon
+    \path[right color=maincolor!55!black, left color=maincolor] 
         ([xshift=10cm, yshift=-14cm]current page.north west) -- 
         ([xshift=22cm, yshift=-14cm]current page.north west) -- 
-        ([xshift=22cm, yshift=-20cm]current page.north west) -- 
-        ([xshift=17cm, yshift=-20cm]current page.north west) -- cycle;
+        ([xshift=22cm, yshift=-17cm]current page.north west) -- 
+        ([xshift=13.7cm, yshift=-17cm]current page.north west) -- cycle;
 
-
-    % --- 3. MAIN DARK SHAPE (The "Cut") ---
-    % This is the complex polygon covering the bottom and left
-    
-    % Coordinates calculation relative to page
-    % Start from bottom left, go up, cut right, dip down, go right, close loop
-    \fill[corpDark] 
-        (current page.south west) -- 
-        (current page.south east) -- 
-        ([yshift=-17cm]current page.north east) -- % Bottom point of right side
-        ([xshift=-7cm, yshift=-17cm]current page.north east) -- % Flat part right
-        ([xshift=-12cm, yshift=-13cm]current page.north east) -- % Diagonal UP-Left
-        ([yshift=-13cm]current page.north west) -- % Top Left start of dark zone
-        cycle;
-
-    % --- 4. WHITE BORDER LINE (The Separation) ---
-    % Draws the thick white line that separates the image from the dark shape
-    \draw[white, line width=4pt] 
-        ([yshift=-13cm]current page.north west) -- 
-        ([xshift=9cm, yshift=-13cm]current page.north west) -- % Horizontal
-        ([xshift=14cm, yshift=-17cm]current page.north west) -- % Diagonal Down
-        ([xshift=22cm, yshift=-17cm]current page.north west);   % Horizontal to edge
-
+    \node[anchor=south, inner sep=0pt] at (current page.south){
+    \includesvg[width=\paperwidth, height=\paperheight]{/home/spyros/cover.svg}
+    };
 
     % --- 5. LOGO & YEAR ---
     
@@ -241,55 +214,6 @@
         \fontsize{38}{40}\selectfont \textbf{\textcolor{maincolor}{#3}}\\[0.4em]
         \fontsize{14}{16}\selectfont \titlefont{\textcolor{white}{\textbf{ΣΧΟΛΙΚΟ ΕΤΟΣ \schoolyear}}}
     };
-
-    % --- 7. DECORATIVE FORMULAS ---
-    % Subtly placed formulas in the dark area
-    \node[anchor=west, text=white, opacity=0.15] at ([xshift=14.5cm, yshift=7cm]current page.south west) {
-        \fontsize{14}{36}\selectfont $i\hbar \frac{\partial}{\partial t}\Psi = \hat{H}\Psi$
-    };
-    
-    \node[anchor=west, text=white, opacity=0.15] at ([xshift=9.7cm, yshift=8.5cm]current page.south west) {
-        \fontsize{12}{40}\selectfont $\nabla \times \mathbf{E} = -\frac{\partial \mathbf{B}}{\partial t}$
-    };
-    % Group 1: Original PDF formulas (Concentrated)
-    \node[text=white, opacity=0.12] at ([xshift=10.5cm, yshift=12.5cm]current page.south west) {\fontsize{12}{14}\selectfont $\displaystyle\int_{x_{0}}^{x}f(x)dx=F(x)-F(x_{0})$};
-    \node[text=white, opacity=0.15] at ([xshift=6.5cm, yshift=9.5cm]current page.south west) {\fontsize{14}{16}\selectfont $\displaystyle\sum_{n=1}^{\infty}\frac{1}{n^{2}+1}=\frac{\pi^{2}}{12}$};
-    \node[text=white, opacity=0.10] at ([xshift=3cm, yshift=8.5cm]current page.south west) {\fontsize{11}{13}\selectfont $\lim\limits_{t\to\infty}\ln t=\displaystyle\int_{1}^{\infty}\frac{1}{t}dt$};
-    \node[text=white, opacity=0.14] at ([xshift=9.5cm, yshift=5.5cm]current page.south west) {\fontsize{13}{15}\selectfont $\displaystyle\iiint_{V}\nabla\cdot FdV=\oiint_{S}F\cdot n dS$};
-    \node[text=white, opacity=0.12] at ([xshift=2.8cm, yshift=5.1cm]current page.south west) {\fontsize{12}{14}\selectfont $\displaystyle\oint_{C}f(z)dz$};
-    \node[text=white, opacity=0.10] at ([xshift=16.2cm, yshift=5cm]current page.south west) {\fontsize{10}{12}\selectfont $\vec{PS}=\langle x^{2},\frac{x}{2}\rangle$};
-    \node[text=white, opacity=0.13] at ([xshift=2cm, yshift=3.2cm]current page.south west) {\fontsize{13}{15}\selectfont $A=\bigcup_{n=1}^{\infty}A_{n}$};
-
-    % Group 2: Fundamental Math & Constants (Concentrated)
-    \node[text=white, opacity=0.15] at ([xshift=9.2cm, yshift=8.1cm]current page.south west) {\fontsize{14}{16}\selectfont $e^{i\pi} + 1 = 0$};
-    \node[text=white, opacity=0.11] at ([xshift=5.8cm, yshift=2.5cm]current page.south west) {\fontsize{12}{14}\selectfont $f(x) = \displaystyle\sum_{n=0}^{\infty} \frac{f^{(n)}(a)}{n!} (x-a)^n$};
-    \node[text=white, opacity=0.12] at ([xshift=15cm, yshift=11.8cm]current page.south west) {\fontsize{11}{13}\selectfont $V - E + F = 2$};
-    \node[text=white, opacity=0.10] at ([xshift=8.1cm, yshift=1.8cm]current page.south west) {\fontsize{14}{16}\selectfont $\nabla^2 \Phi = \frac{\rho}{\epsilon_0}$};
-    \node[text=white, opacity=0.12] at ([xshift=10.5cm, yshift=3.2cm]current page.south west) {\fontsize{10}{12}\selectfont $\zeta(s) = \displaystyle\sum_{n=1}^{\infty} n^{-s}$};
-
-    % Group 3: 20 New Formulas (Concentrated area)
-    \node[text=white, opacity=0.12] at ([xshift=2cm, yshift=1.8cm]current page.south west) {\fontsize{11}{13}\selectfont $E = mc^2$};
-    \node[text=white, opacity=0.10] at ([xshift=18.2cm, yshift=8cm]current page.south west) {\fontsize{10}{12}\selectfont $G_{\mu\nu} + \Lambda g_{\mu\nu} = \kappa T_{\mu\nu}$};
-    \node[text=white, opacity=0.13] at ([xshift=1.8cm, yshift=9.8cm]current page.south west) {\fontsize{12}{14}\selectfont $\hat{H}\Psi = E\Psi$};
-    \node[text=white, opacity=0.11] at ([xshift=12.8cm, yshift=6.4cm]current page.south west) {\fontsize{13}{15}\selectfont $P(A|B) = \frac{P(B|A)P(A)}{P(B)}$};
-    \node[text=white, opacity=0.14] at ([xshift=11.5cm, yshift=10cm]current page.south west) {\fontsize{12}{14}\selectfont $\sin^2{x}+\cos^2{x}=1$};
-    \node[text=white, opacity=0.10] at ([xshift=11.2cm, yshift=7.3cm]current page.south west) {\fontsize{10}{12}\selectfont $S = k_B \ln W$};
-    \node[text=white, opacity=0.12] at ([xshift=4.1cm, yshift=4.3cm]current page.south west) {\fontsize{13}{15}\selectfont $a^n + b^n = c^n$};
-    \node[text=white, opacity=0.10] at ([xshift=9.5cm, yshift=9.4cm]current page.south west) {\fontsize{11}{13}\selectfont $R_{\mu\nu} = 0$};
-    \node[text=white, opacity=0.13] at ([xshift=6.2cm, yshift=1.2cm]current page.south west) {\fontsize{14}{16}\selectfont $\mathcal{F}\{f\}(\xi) = \displaystyle\int f(x)e^{-2\pi ix\xi}dx$};
-    \node[text=white, opacity=0.11] at ([xshift=11.2cm, yshift=4.1cm]current page.south west) {\fontsize{10}{12}\selectfont $\Delta x \Delta p \ge \frac{\hbar}{2}$};
-    \node[text=white, opacity=0.10] at ([xshift=11.8cm, yshift=2.1cm]current page.south west) {\fontsize{12}{14}\selectfont $\Gamma(z) = \displaystyle\int_0^\infty t^{z-1}e^{-t}dt$};
-    \node[text=white, opacity=0.14] at ([xshift=13.8cm, yshift=8cm]current page.south west) {\fontsize{13}{15}\selectfont $\chi = \frac{1}{2\pi}\displaystyle\int K dA$};
-    \node[text=white, opacity=0.12] at ([xshift=7cm, yshift=3.9cm]current page.south west) {\fontsize{11}{13}\selectfont $pv = nRT$};
-    \node[text=white, opacity=0.11] at ([xshift=14.2cm, yshift=10.8cm]current page.south west) {\fontsize{14}{16}\selectfont $\det(A-\lambda I) = 0$};
-    \node[text=white, opacity=0.13] at ([xshift=18cm, yshift=5.9cm]current page.south west) {\fontsize{12}{14}\selectfont $\frac{DF}{dt} = \frac{\partial F}{\partial t} + (v \cdot \nabla)F$};
-    \node[text=white, opacity=0.11] at ([xshift=12.2cm, yshift=4.6cm]current page.south west) {\fontsize{10}{12}\selectfont $\displaystyle\int e^{-x^2} dx = \sqrt{\pi}$};
-    \node[text=white, opacity=0.15] at ([xshift=16.8cm, yshift=9.2cm]current page.south west) {\fontsize{11}{13}\selectfont $\mathbf{F} = q(\mathbf{E} + \mathbf{v} \times \mathbf{B})$};
-    \node[text=white, opacity=0.10] at ([xshift=17.5cm, yshift=10.3cm]current page.south west) {\fontsize{14}{14}\selectfont $x = \frac{-b \pm \sqrt{\Delta}}{2a}$};
-    \node[text=white, opacity=0.12] at ([xshift=12cm, yshift=1cm]current page.south west) {\fontsize{10}{12}\selectfont $A=\LEFTRIGHT{\{}{\}}{\nu+\dfrac{1}{\nu}\ ,\ \nu\in\mathbb{N}^*}$};
-    \node[text=white, opacity=0.12] at ([xshift=8.8cm, yshift=11.2cm]current page.south west) {\fontsize{13}{15}\selectfont $H = -\displaystyle\sum p_i \log p_i$};
-
-
 
     % --- 8. FOOTER / CONTACT INFO ---
     % Vertical Yellow Bar
